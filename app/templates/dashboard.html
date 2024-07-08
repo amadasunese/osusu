@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Osusu Contribution{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">Dashboard</h1>
+    <p class="text-center">Welcome back, {{ current_user.username }}!</p>
+
+    <div class="row">
+        <!-- Groups Section -->
+        <!-- <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2>Your Groups</h2>
+                </div>
+                <div class="card-body">
+                    {% if current_user.groups %}
+                    <ul class="list-group">
+                        {% for group in current_user.groups %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ group.name }}
+                            <a href="{{ url_for('main.group_detail', group_id=group.id) }}" class="btn btn-primary btn-sm">View</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p>You are not part of any groups yet.</p>
+                    {% endif %}
+                    <a href="{{ url_for('main.create_group') }}" class="btn btn-success mt-3">Create New Group</a>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Available Groups Section -->
+        <!-- Groups Section -->
+<div class="col-md-6">
+    <div class="card mb-4">
+        <div class="card-header">
+            <h2>Your Groups</h2>
+        </div>
+        <div class="card-body">
+            {% if current_user.groups %}
+            <ul class="list-group">
+                {% for group in current_user.groups %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ group.name }}
+                    <a href="{{ url_for('main.group_detail', group_id=group.id) }}" class="btn btn-primary btn-sm">View</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>You are not part of any groups yet.</p>
+            {% endif %}
+            <a href="{{ url_for('main.create_group') }}" class="btn btn-success mt-3">Create New Group</a>
+            <a href="{{ url_for('main.join_group') }}" class="btn btn-info mt-3">Join Existing Group</a>
+        </div>
+    </div>
+</div>
+
+
+        <!-- Contributions Section -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2>Your Contributions</h2>
+                </div>
+                <div class="card-body">
+                    <canvas id="contributionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Join Requests Section -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2>Join Requests</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for request in join_requests %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ request.user.username }} ({{ request.group.name }})
+                            <div>
+                                <form method="POST" action="{{ url_for('main.approve_request', group_id=request.group.id, request_id=request.id) }}" style="display:inline;">
+                                    <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                                </form>
+                                <form method="POST" action="{{ url_for('main.deny_request', group_id=request.group.id, request_id=request.id) }}" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm">Deny</button>
+                                </form>
+                                <!-- <form method="POST" action="{{ url_for('main.approve_request', group_id=request.group.id, request_id=request.id) }}" style="display:inline;">
+                                    {{ form.hidden_tag() }}
+                                    <button type="submit" class="btn btn-success btn-sm">Accept</button>
+                                </form>
+                                <form method="POST" action="{{ url_for('main.deny_request', group_id=request.group.id, request_id=request.id) }}" style="display:inline;">
+                                    {{ form.hidden_tag() }}
+                                    <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                                </form> -->
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback Section -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2>Feedback</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('main.submit_feedback') }}">
+                        <!-- {{ csrf_token() }} -->
+                        <div class="form-group">
+                            {{ form.content.label(class="form-label") }}
+                            {{ form.content(class="form-control") }}
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+var ctx = document.getElementById('contributionChart').getContext('2d');
+var contributionChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: {{ contributions|map(attribute='date')|list|tojson }},
+        datasets: [{
+            label: 'Contributions Over Time',
+            data: {{ contributions|map(attribute='amount')|list|tojson }},
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

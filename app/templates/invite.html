@@ -1,0 +1,13 @@
+<h1>Invite Friends!</h1>
+<p>Share this link to invite your friends:</p>
+<input type="text" value="{{ invite_link }}" readonly>
+<button onclick="copyToClipboard()">Copy to Clipboard</button>
+
+<script>
+function copyToClipboard() {
+  var copyText = document.querySelector('input');
+  copyText.select();
+  document.execCommand("copy");
+  alert("Copied to clipboard!");
+}
+</script>

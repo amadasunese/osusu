@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Join Group{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">Join Existing Group</h2>
+    
+    {% if form.group_id.choices %}
+    <form method="POST" action="{{ url_for('main.join_group') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.group_id.label(class="form-label") }}
+            {{ form.group_id(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Join Group</button>
+    </form>
+    {% else %}
+    <p>No available groups to join.</p>
+    {% endif %}
+</div>
+{% endblock %}

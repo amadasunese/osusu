@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Feedback - Osusu Contribution{% endblock %}
+
+{% block content %}
+<h1>Feedback</h1>
+<form method="post">
+    <textarea name="content" placeholder="Enter your feedback here..." required></textarea>
+    <button type="submit">Submit Feedback</button>
+</form>
+{% endblock %}

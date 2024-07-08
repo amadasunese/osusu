@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Osusu Contribution{% endblock %}
+
+{% block content %}
+<div class="index_container">
+    <div class="jumbotron text-center my-5">
+        <h1 class="display-4">Welcome to Osusu Contribution</h1>
+        <p class="lead">Efficiently manage your monthly contributions with your friends and family!</p>
+        <hr class="my-4">
+        <p>Join us today and experience seamless group contribution management.</p>
+        <a class="btn btn-primary btn-lg mx-2" href="{{ url_for('main.register') }}" role="button">Register Now</a>
+        <a class="btn btn-secondary btn-lg mx-2" href="{{ url_for('main.login') }}" role="button">Login</a>
+    </div>
+
+    <div class="row text-center my-5">
+        <div class="col-md-4">
+          <img src="{{ url_for('static', filename='images/manage_groups.jpg') }}" class="img-fluid rounded aspect-ratio" alt="Manage Groups">
+          <h3 class="my-3">Manage Groups</h3>
+          <p>Create, add, and remove members from your contribution groups effortlessly.</p>
+        </div>
+        <div class="col-md-4">
+          <img src="{{ url_for('static', filename='images/join_groups.png') }}" class="img-fluid rounded aspect-ratio" alt="Join Groups">
+          <h3 class="my-3">Join Groups</h3>
+          <p>Join groups of your choice and wait for admin approval to start contributing.</p>
+        </div>
+        <div class="col-md-4">
+          <img src="{{ url_for('static', filename='images/track.png') }}" class="img-fluid rounded aspect-ratio" alt="Track Contributions">
+          <h3 class="my-3">Track Contributions</h3>
+          <p>Monitor your contributions and group activity in real-time.</p>
+        </div>
+      </div>
+      
+      <style>
+        .aspect-ratio {
+          width: 100px; /* Fills the container width */
+          aspect-ratio: 1 / 1; /* Aspect ratio of 1:1 (adjust as needed) */
+          object-fit: cover; /* Scales image to cover the container while maintaining aspect ratio */
+        }
+      </style>
+      
+
+    <div class="text-center my-5">
+        <h2>Why Choose Osusu Contribution?</h2>
+        <p class="lead">Our platform simplifies the way you handle group contributions, ensuring transparency, reliability, and convenience.</p>
+    </div>
+</div>
+{% endblock %}

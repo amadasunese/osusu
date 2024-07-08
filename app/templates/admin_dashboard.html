@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<div class="list-group">
+    <h3>Users</h3>
+    {% for user in users %}
+    <a href="#" class="list-group-item">{{ user.username }}</a>
+    {% endfor %}
+    <h3>Transactions</h3>
+    {% for transaction in transactions %}
+    <a href="#" class="list-group-item">
+        {{ transaction.user.username }} - ${{ transaction.amount }} - {{ transaction.type }}
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

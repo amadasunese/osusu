@@ -1,0 +1,72 @@
+<!-- <nav>
+    <div class="nav-container">
+        <a href="{{ url_for('main.index') }}" class="brand">Osusu Contribution</a>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('main.index') }}">Home</a></li>
+            
+            <li><a href="{{ url_for('main.schedule') }}">Schedule</a></li>
+            <li><a href="{{ url_for('main.reports') }}">Reports</a></li>
+            <li><a href="{{ url_for('main.feedback') }}">Feedback</a></li>
+            {% if current_user.is_admin %}
+            <a class="nav-link" href="{{ url_for('main.admin_dashboard') }}">Admin Dashboard</a>
+                {% endif %}
+            {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('main.logout') }}">Logout</a></li>
+            <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('main.profile') }}">Profile</a></li>
+            {% else %}
+            <li><a href="{{ url_for('main.login') }}">Login</a></li>
+            <li><a href="{{ url_for('main.register') }}">Sign Up</a></li>
+            {% endif %}
+
+        </ul>
+    </div>
+</nav> -->
+
+<!-- navigation.html -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{ url_for('main.index') }}">Osusu Contribution</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            {% if current_user.is_authenticated %}
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.create_group') }}">Create Group</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.group_list') }}">Group List</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.schedule') }}">Contribution Schedule</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.reports') }}">Reports</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.dashboard') }}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.feedback') }}">Feedback</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.profile') }}">Profile</a>
+            </li>
+           
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.logout') }}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.login') }}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.register') }}">Register</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
