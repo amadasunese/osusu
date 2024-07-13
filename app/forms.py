@@ -134,3 +134,10 @@ class EditUserForm(FlaskForm):
     new_password = PasswordField('New Password')
     confirm_new_password = PasswordField('Confirm New Password', validators=[EqualTo('new_password', message='Passwords must match')])
     submit = SubmitField('Update User')
+
+
+class ContactForm(FlaskForm):
+    name = StringField('Full Name', validators=[DataRequired()])
+    email = StringField('Email Address', validators=[DataRequired(), Email()])
+    subject = StringField('Subject', validators=[DataRequired()])
+    message = TextAreaField('Message', validators=[DataRequired()])

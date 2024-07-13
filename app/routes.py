@@ -10,8 +10,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app.forms import RegistrationForm, LoginForm, ProfileForm, CreateGroupForm, AddMemberForm
 from app.forms import FeedbackForm, ScheduleForm, JoinRequestForm, EditUserForm, TransactionForm
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from app.forms import ContactForm
+from app.email import send_email 
+from . import mail
 # app = create_app()
+import os
+
 
 main = Blueprint('main', __name__)
 
@@ -19,10 +23,29 @@ main = Blueprint('main', __name__)
 def index():
     return render_template('index.html')
 
-def send_email(subject, recipient, template, **kwargs):
-    msg = Message(subject, recipients=[recipient])
-    msg.html = render_template(template + '.html', **kwargs)
-    mail.send(msg)
+# MAIL_SERVER='smtp.gmail.com',
+# MAIL_PORT=587,
+# MAIL_USE_TLS=True,
+# # MAIL_USE_SSL=False,
+# MAIL_USERNAME = 'amadasunese@gmail.com',
+# MAIL_PASSWORD = 'qxxo axga dzia jjsw',
+# MAIL_DEFAULT_SENDER = 'amadasunese@gmail.com'
+
+# def send_email(to, subject, template):
+#     msg = Message(
+#         subject,
+#         recipients=[to],
+#         html=template,
+#         sender= os.environ.get('MAIL_DEFAULT_SENDER')
+        
+#     )
+#     mail.send(msg)
+    
+# def send_email(subject, recipient, template, **kwargs):
+#     msg = Message(subject, recipients=[recipient])
+#     msg.html = render_template(template + '.html', **kwargs)
+#     mail.send(msg)
+
 
 @main.route('/notify_payment')
 @login_required
@@ -35,6 +58,60 @@ def notify_payment():
 # @login_required
 def about():
     return render_template('about.html')
+
+# @main.route('/contact', methods=['GET', 'POST'])
+# def contact():
+#     form = ContactForm()
+#     if form.validate_on_submit():
+#         name = form.name.data
+#         email = form.email.data
+#         subject = form.subject.data
+#         message = form.message.data
+
+#         # Send email or save to database
+#         send_email(subject, sender=email, recipients=['amadasunese@gmail.com'],
+#                    text_body=f'Name: {name}\nEmail: {email}\n\n{message}')
+#         flash('Your message has been sent successfully!', 'success')
+#         return redirect(url_for('main.contact'))
+
+#     return render_template('contact.html', title='Contact Us', form=form)
+
+# @main.route('/contact', methods=['GET', 'POST'])
+# def contact():
+#     form = ContactForm()
+#     if form.validate_on_submit():
+#         name = form.name.data
+#         email = form.email.data
+#         subject = form.subject.data
+#         message = form.message.data
+
+#         # Send email
+#         email_template = render_template('contact_email.html', name=name, email=email, subject=subject, message=message)
+#         send_email(to='amadasunese@gmail.com', subject=subject, template=email_template)
+#         flash('Your message has been sent successfully!', 'success')
+#         return redirect(url_for('main.contact'))
+
+#     return render_template('contact.html', title='Contact Us', form=form)
+
+@main.route('/contact', methods=['GET', 'POST'])
+def contact():
+    form = ContactForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        email = form.email.data
+        subject = form.subject.data
+        message = form.message.data
+
+        # Send email
+        email_template = render_template('contact_email.html', name=name, email=email, subject=subject, message=message)
+        try:
+            send_email(to='amadasunese@gmail.com', subject=subject, template=email_template)
+            flash('Your message has been sent successfully!', 'success')
+        except Exception as e:
+            flash(f'An error occurred while sending your message: {e}', 'danger')
+        return redirect(url_for('main.contact'))
+
+    return render_template('contact.html', title='Contact Us', form=form)
 
 # @main.route('/profile', methods=['GET', 'POST'])
 # @login_required

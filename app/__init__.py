@@ -7,16 +7,18 @@ from flask_wtf.csrf import CSRFProtect
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
 # from flask_script import Manager
+from flask_mail import Mail
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 migrate = Migrate()
 csrf = CSRFProtect()
+mail = Mail()
 
 # manager = Manager()
 
 
-mail = Mail()
+# mail = Mail()
 
 def create_app():
     app = Flask(__name__)
@@ -26,8 +28,10 @@ def create_app():
     mail.init_app(app)
     csrf.init_app(app)
     migrate.init_app(app, db)
+    
     # manager = Manager(app)
 
+    
     login_manager = LoginManager()
     login_manager.login_view = 'main.login'
     login_manager.init_app(app)
