@@ -4,7 +4,8 @@
 
 {% block content %}
 <h1>Feedback</h1>
-<form method="post">
+<form method="post" action="{{ url_for('main.submit_feedback') }}">
+    {{ form.hidden_tag() }}
     <textarea name="content" placeholder="Enter your feedback here..." required></textarea>
     <button type="submit">Submit Feedback</button>
 </form>

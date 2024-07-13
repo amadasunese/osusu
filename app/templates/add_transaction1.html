@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block content %}
 <h2>Add Transaction</h2>
 <form method="POST">
@@ -11,10 +10,6 @@
     <div class="mb-3">
         {{ form.description.label(class="form-label") }}
         {{ form.description(class="form-control") }}
-    </div>
-    <div class="mb-3">
-        {{ form.group_id.label(class="form-label") }}
-        {{ form.group_id(class="form-control") }}
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">Edit User Details</h2>
+    <form method="POST" action="{{ url_for('main.edit_user', user_id=user.id) }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.username.label(class="form-label") }}
+            {{ form.username(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.role.label(class="form-label") }}
+            {{ form.role(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.is_admin.label(class="form-label") }}
+            {{ form.is_admin(class="form-check-input") }}
+        </div>
+        <div class="form-group">
+            {{ form.fullname.label(class="form-label") }}
+            {{ form.fullname(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.phonenumber.label(class="form-label") }}
+            {{ form.phonenumber(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">{{ form.submit.label }}</button>
+    </form>
+</div>
+{% endblock %}
+
+
+

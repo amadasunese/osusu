@@ -20,8 +20,6 @@
             background-color: #f9f9f9;
         }
     </style>
-</head>
-<body>
     <h1>Group List</h1>
     
     {% if groups %}
@@ -29,7 +27,8 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
+                    <!-- <th>Group Creator Username</th> -->
+                    <th>Group Name</th>
                     <th>Created By</th>
                     <th>Member Count</th>
                 </tr>
@@ -38,8 +37,9 @@
                 {% for group in groups %}
                     <tr>
                         <td>{{ group.id }}</td>
+                        <!-- <td>{{ user_dict[group.created_by] }}</td> -->
                         <td>{{ group.name }}</td>
-                        <td>{{ group.created_by }}</td>
+                        <td>{{ user_dict[group.created_by] }}</td>
                         <td>{{ group.members|length }}</td>
                     </tr>
                 {% endfor %}
@@ -48,5 +48,4 @@
     {% else %}
         <p>No groups found.</p>
     {% endif %}
-
-    {% endblock %}
+{% endblock %}

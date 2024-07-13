@@ -1,28 +1,3 @@
-<!-- <nav>
-    <div class="nav-container">
-        <a href="{{ url_for('main.index') }}" class="brand">Osusu Contribution</a>
-        <ul class="nav-links">
-            <li><a href="{{ url_for('main.index') }}">Home</a></li>
-            
-            <li><a href="{{ url_for('main.schedule') }}">Schedule</a></li>
-            <li><a href="{{ url_for('main.reports') }}">Reports</a></li>
-            <li><a href="{{ url_for('main.feedback') }}">Feedback</a></li>
-            {% if current_user.is_admin %}
-            <a class="nav-link" href="{{ url_for('main.admin_dashboard') }}">Admin Dashboard</a>
-                {% endif %}
-            {% if current_user.is_authenticated %}
-            <li><a href="{{ url_for('main.logout') }}">Logout</a></li>
-            <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
-            <li><a href="{{ url_for('main.profile') }}">Profile</a></li>
-            {% else %}
-            <li><a href="{{ url_for('main.login') }}">Login</a></li>
-            <li><a href="{{ url_for('main.register') }}">Sign Up</a></li>
-            {% endif %}
-
-        </ul>
-    </div>
-</nav> -->
-
 <!-- navigation.html -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="{{ url_for('main.index') }}">Osusu Contribution</a>
@@ -32,40 +7,59 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             {% if current_user.is_authenticated %}
+                <!-- Group Membership Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="groupMembershipDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Group Membership
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="groupMembershipDropdown">
+                        <a class="dropdown-item" href="{{ url_for('main.create_group') }}">Create Group</a>
+                        <a class="dropdown-item" href="{{ url_for('main.join_group') }}">Join a Group</a>
+                        <a class="dropdown-item" href="{{ url_for('main.group_list') }}">Group List</a>
+                    </div>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('main.create_group') }}">Create Group</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('main.group_list') }}">Group List</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('main.schedule') }}">Contribution Schedule</a>
-            </li>
+                <!-- Dashboard Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dashboardDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dashboard
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dashboardDropdown">
+                        <a class="dropdown-item" href="{{ url_for('main.schedule') }}">Contribution Schedule</a>
+                        <a class="dropdown-item" href="{{ url_for('main.reports') }}">Reports</a>
+                        <a class="dropdown-item" href="{{ url_for('main.dashboard') }}">Dashboard</a>
+                    </div>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('main.reports') }}">Reports</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('main.dashboard') }}">Dashboard</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('main.feedback') }}">Feedback</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('main.profile') }}">Profile</a>
-            </li>
-           
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('main.logout') }}">Logout</a>
-            </li>
+                <!-- Admin Dashboard Dropdown (Visible only to Admin Users) -->
+                {% if current_user.is_admin %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="adminDashboardDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Admin Dashboard
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="adminDashboardDropdown">
+                            <a class="dropdown-item" href="{{ url_for('main.list_users') }}">Users</a>
+                            <a class="dropdown-item" href="{{ url_for('main.admin_dashboard') }}">Admin Dashboard</a>
+                        </div>
+                    </li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main.submit_feedback') }}">Feedback</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main.profile') }}">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main.logout') }}">Logout</a>
+                </li>
             {% else %}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('main.login') }}">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('main.register') }}">Register</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main.login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main.register') }}">Register</a>
+                </li>
             {% endif %}
         </ul>
     </div>

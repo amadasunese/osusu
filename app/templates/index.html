@@ -4,14 +4,19 @@
 
 {% block content %}
 <div class="index_container">
-    <div class="jumbotron text-center my-5">
-        <h1 class="display-4">Welcome to Osusu Contribution</h1>
-        <p class="lead">Efficiently manage your monthly contributions with your friends and family!</p>
-        <hr class="my-4">
-        <p>Join us today and experience seamless group contribution management.</p>
+  <div class="jumbotron text-center my-5">
+    <h1 class="display-4">Welcome to Osusu Contribution</h1>
+    <p class="lead">Efficiently manage your monthly contributions with your friends and family!</p>
+    <hr class="my-4">
+    <p>Join us today and experience seamless group contribution management.</p>
+    {% if current_user.is_authenticated %}
+        <a class="btn btn-primary btn-lg mx-2" href="{{ url_for('main.dashboard') }}" role="button">Dashboard</a>
+        <a class="btn btn-secondary btn-lg mx-2" href="{{ url_for('main.logout') }}" role="button">Logout</a>
+    {% else %}
         <a class="btn btn-primary btn-lg mx-2" href="{{ url_for('main.register') }}" role="button">Register Now</a>
         <a class="btn btn-secondary btn-lg mx-2" href="{{ url_for('main.login') }}" role="button">Login</a>
-    </div>
+    {% endif %}
+</div>
 
     <div class="row text-center my-5">
         <div class="col-md-4">
