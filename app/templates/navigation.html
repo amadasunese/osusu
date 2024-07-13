@@ -6,6 +6,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.index') }}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.about') }}">About Osusu</a>
+            </li>
             {% if current_user.is_authenticated %}
                 <!-- Group Membership Dropdown -->
                 <li class="nav-item dropdown">

@@ -1,3 +1,5 @@
 flask-talisman
 Flask-Mail
 python-dotenv
+python-decouple==3.1
+flask_migrate

@@ -31,6 +31,11 @@ def notify_payment():
     return 'Email sent!'
 
 
+@main.route('/about')
+@login_required
+def about():
+    return render_template('about.html')
+
 # @main.route('/profile', methods=['GET', 'POST'])
 # @login_required
 # def profile():
