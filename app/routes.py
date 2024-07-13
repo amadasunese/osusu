@@ -11,7 +11,7 @@ from app.forms import RegistrationForm, LoginForm, ProfileForm, CreateGroupForm,
 from app.forms import FeedbackForm, ScheduleForm, JoinRequestForm, EditUserForm, TransactionForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.forms import ContactForm
-from app.email import send_email 
+# from app.email import send_email 
 from . import mail
 # app = create_app()
 import os
@@ -23,23 +23,23 @@ main = Blueprint('main', __name__)
 def index():
     return render_template('index.html')
 
-# MAIL_SERVER='smtp.gmail.com',
-# MAIL_PORT=587,
-# MAIL_USE_TLS=True,
-# # MAIL_USE_SSL=False,
-# MAIL_USERNAME = 'amadasunese@gmail.com',
-# MAIL_PASSWORD = 'qxxo axga dzia jjsw',
-# MAIL_DEFAULT_SENDER = 'amadasunese@gmail.com'
+MAIL_SERVER='smtp.gmail.com',
+MAIL_PORT=587,
+MAIL_USE_TLS=True,
+# MAIL_USE_SSL=False,
+MAIL_USERNAME = 'amadasunese@gmail.com',
+MAIL_PASSWORD = 'qxxo axga dzia jjsw',
+MAIL_DEFAULT_SENDER = 'amadasunese@gmail.com'
 
-# def send_email(to, subject, template):
-#     msg = Message(
-#         subject,
-#         recipients=[to],
-#         html=template,
-#         sender= os.environ.get('MAIL_DEFAULT_SENDER')
+def send_email(to, subject, template):
+    msg = Message(
+        subject,
+        recipients=[to],
+        html=template,
+        sender= 'MAIL_DEFAULT_SENDER'
         
-#     )
-#     mail.send(msg)
+    )
+    mail.send(msg)
     
 # def send_email(subject, recipient, template, **kwargs):
 #     msg = Message(subject, recipients=[recipient])

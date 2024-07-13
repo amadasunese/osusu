@@ -66,10 +66,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('main.register') }}">Register</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('main.contact') }}">Contact Support</a>
-                </li>
+                </li> -->
             {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.contact') }}">Contact Support</a>
+            </li>
         </ul>
     </div>
 </nav>
